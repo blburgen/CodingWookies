@@ -31,10 +31,106 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+/* Header */
+
+.site-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2px 16px;
+}
+
+.site-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.site-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.hamburger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.hamburger::after {
+    content: "\2630";
+}
+
+.hamburger.show::after {
+    content: "\00d7";
+}
+
+.navigation {
+    display: none;
+    white-space: nowrap;
+}
+
+.navigation.show {
+    display: block;
+}
+
+@media (max-width: 37.9rem) {
+    .navigation.show {
+        width: 100%;
+        margin-top: 4px;
+    }
+}
+
+.navigation ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navigation a {
+    display: block;
+    padding: .8rem 10px;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+.navigation li:hover {
+    transition: all .3s ease;
+    background-color: grey;
+    border-radius: 7px;
+}
+
+.current-page {
+    background-color: var(--header-highlight);
+}
+
+.navigation a:hover {
+    background-color: var(--header-hover);
+}
+
+/* Desktop */
+@media only screen and (min-width: 38rem) {
+    .hamburger {
+        display: none;
+    }
+    .site-header {
+        flex-direction: row;
+    }
+    .navigation {
+        display: block;
+    }
+    .navigation.show {
+        display: block;
+    }
+    .navigation ul {
+        display: flex;
+    }
+    .navigation a {
+        border: none;
+    }
 }
 
 a {
