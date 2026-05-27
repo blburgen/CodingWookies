@@ -1,5 +1,6 @@
 import styles from "./page.module.css";
 import Header from "@/app/ui/header";
+import Footer from "@/app/ui/footer";
 import Card from "@/app/ui/card";
 
 export default function Home() {
@@ -8,9 +9,6 @@ export default function Home() {
       <Header />
 
       <main className={styles.main}>
-        <div className={styles.header}>
-          <h1>Handcrafted Haven</h1>
-        </div>
 
         <div className={styles.cards}>
           <Card title="Card 1" description="Card 1." />
@@ -18,6 +16,7 @@ export default function Home() {
           <Card title="Card 3" description="Card 3." />
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
