@@ -1,12 +1,22 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FCFCFC;
+  --foreground: #26547C;
+
+  --accent: #048B67;
+  --accent-strong: #EB1E4E;
+  --highlight: #FFD166;
+
+  --border: rgba(38, 84, 124, 0.25);
+  --hover-bg: rgba(38, 84, 124, 0.1);
+  --focus-ring: rgba(4, 139, 103, 0.25);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #26547C;
+    --foreground: #FCFCFC;
+    --border: rgba(252, 252, 252, 0.25);
+    --hover-bg: rgba(252, 252, 252, 0.12);
   }
 }
 
@@ -100,7 +110,7 @@ body {
 
 .navigation-item:hover {
     transition: all .3s ease;
-    background-color: grey;
+    background-color: var(--hover-bg);
     border-radius: 7px;
 }
 
@@ -167,7 +177,7 @@ a {
   padding: .6rem 8px .6rem 36px;
   margin: .2rem 0;
 
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   border-radius: 20px;
   font-size: 1rem;
   background-color: var(--background);
@@ -183,6 +193,6 @@ a {
 
 .search input:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--focus-ring);
 }
