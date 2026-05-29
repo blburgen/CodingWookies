@@ -1,16 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [searchValue, setSearchValue] = useState("");
 
-    const links = [
+    const items = [
         { href: "/", label: "Home" },
-        { href: "/h", label: "Home 2" },
-        { href: "/h3", label: "Home 3" },
-        { href: "/h4", label: "Home 4" },
+        { href: "/login", label: "Login" },
     ];
+
+    const changeSubmitSearch = (e: ChangeEvent) => {
+        e.preventDefault();
+        console.warn("Search not implemented yet. Tried to search:", searchValue);
+        setSearchValue("");
+    }
 
     return (
         <header className="site-header">
@@ -25,9 +30,20 @@ export default function Header() {
             </div>
             <nav id="nav-bar" className={`navigation${menuOpen ? " show" : ""}`}>
                 <ul>
-                    {links.map(link => (
-                        <li key={link.href}>
-                            <a href={link.href}>{link.label}</a>
+                    <li className="search">
+                        <form onSubmit={changeSubmitSearch}>
+                            <input 
+                                type="text" 
+                                name="search" 
+                                value={searchValue} 
+                                onChange={(e) => setSearchValue(e.target.value)} 
+                                placeholder="Search..."
+                            />
+                        </form>
+                    </li>
+                    {items.map(item => (
+                        <li className="navigation-item" key={item.href}>
+                            <a href={item.href}>{item.label}</a>
                         </li>
                     ))}
                 </ul>
