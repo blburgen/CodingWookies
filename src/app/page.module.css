@@ -1,9 +1,14 @@
 :root {
   --background: #fafafa;
   --background2: #cfcfcf;
+  --background3: #f59e0b;
+  --background4: #d97706;
+  --background5: #1e3a8a;
 
   --text-primary: #000;
   --text-secondary: #666;
+  --text-tertiary: #cbd5e1;
+  --text-Quaternary: #0f172a;
 
   --button-primary-hover: #383838;
   --button-secondary-hover: #f2f2f2;
@@ -49,7 +54,7 @@
 }
 
 .card {
-  background-color: white;
+  background-color: var(--background);
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -58,6 +63,7 @@
 .card h2 {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
+  color: var(--button-primary-hover);
 }
 
 .card p {
@@ -76,4 +82,74 @@
   background-color: white;
   height: 4rem;
   min-height: 4rem;
+}
+
+/* =========================================================================
+   HOMEPAGE EXTENSIONS BY ISAAC (CSS MODULES)
+   ========================================================================= */
+
+.heroSection {
+  background: linear-gradient(
+    135deg,
+    var(--background5) 0%,
+    var(--text-Quaternary) 100%
+  );
+  color: var(--background);
+  text-align: center;
+  padding: 4.5rem 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.heroTitle {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--background);
+}
+
+.heroSubtitle {
+  font-size: 1.15rem;
+  max-width: 650px;
+  margin: 0 auto 2rem auto;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+}
+
+.ctaContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.ctaButton {
+  background-color: var(--background3);
+  color: var(--text-Quaternary);
+  font-weight: 600;
+  padding: 0.8rem 2.2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.ctaButton:hover {
+  background-color: var(--background4);
+}
+
+.ctaButton:focus {
+  outline: 3px solid var(--background);
+  background-color: var(--background4);
+}
+
+.sectionTitle {
+  font-size: 1.75rem;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 600;
 }
