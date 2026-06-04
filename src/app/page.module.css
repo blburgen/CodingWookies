@@ -1,35 +1,16 @@
-:root {
-  --background: #fafafa;
-  --background2: #cfcfcf;
-  --background3: #f59e0b;
-  --background4: #d97706;
-  --background5: #1e3a8a;
-
-  --text-primary: #000;
-  --text-secondary: #666;
-  --text-tertiary: #cbd5e1;
-  --text-Quaternary: #0f172a;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-}
-
 .page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-.main {
-  flex: 1;
-}
+.main { flex: 1; }
 
 .header {
   text-align: center;
   justify-content: center;
   padding: 2rem;
-  color: var(--text-primary);
+  color: var(--foreground);
   background-color: var(--background);
 }
 
@@ -41,20 +22,12 @@
   background-color: var(--background);
 }
 
-@media (max-width: 1024px) {
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .cards {
-    grid-template-columns: 1fr;
-  }
-}
+@media (max-width: 1024px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
 
 .card {
   background-color: var(--background);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -63,7 +36,7 @@
 .card h2 {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
-  color: var(--button-primary-hover);
+  color: var(--foreground);
 }
 
 .card p {
@@ -74,14 +47,16 @@
 .footer {
   text-align: center;
   padding: 1rem;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   background-color: var(--background);
+  border-top: 1px solid var(--border);
 }
 
 .empty {
-  background-color: white;
+  background-color: var(--bg-muted);
   height: 4rem;
   min-height: 4rem;
+  border-radius: 8px;
 }
 
 /* =========================================================================
@@ -89,12 +64,8 @@
    ========================================================================= */
 
 .heroSection {
-  background: linear-gradient(
-    135deg,
-    var(--background5) 0%,
-    var(--text-Quaternary) 100%
-  );
-  color: var(--background);
+  background: linear-gradient(135deg, var(--bg-deep-blue) 0%, var(--text-primary) 100%);
+  color: var(--foreground);
   text-align: center;
   padding: 4.5rem 1.5rem;
   border-radius: 12px;
@@ -107,48 +78,45 @@
   margin-bottom: 1rem;
   font-weight: 700;
   letter-spacing: 0.03em;
-  color: var(--background);
+  color: #ffffff;
 }
 
 .heroSubtitle {
   font-size: 1.15rem;
   max-width: 650px;
   margin: 0 auto 2rem auto;
-  color: var(--text-tertiary);
+  color: rgba(255, 255, 255, 0.85);
   line-height: 1.6;
 }
 
-.ctaContainer {
-  display: flex;
-  justify-content: center;
-}
+.ctaContainer { display: flex; justify-content: center; }
 
 .ctaButton {
-  background-color: var(--background3);
-  color: var(--text-Quaternary);
+  background-color: var(--highlight);
+  color: var(--text-primary);
   font-weight: 600;
   padding: 0.8rem 2.2rem;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    transform 0.1s ease;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .ctaButton:hover {
-  background-color: var(--background4);
+  background-color: var(--button-primary-hover);
+  color: var(--text-tertiary);
 }
 
-.ctaButton:focus {
-  outline: 3px solid var(--background);
-  background-color: var(--background4);
+.ctaButton:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus-ring);
+  background-color: var(--accent-strong);
 }
 
 .sectionTitle {
   font-size: 1.75rem;
-  color: var(--text-primary);
+  color: var(--foreground);
   text-align: center;
   margin-bottom: 2rem;
   font-weight: 600;
