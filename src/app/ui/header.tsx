@@ -9,6 +9,7 @@ export default function Header() {
     const items = [
         { href: "/", label: "Home" },
         { href: "/login", label: "Login" },
+        { href: "/listings", label: "Listings"}
     ];
 
     const changeSubmitSearch = (e: ChangeEvent) => {

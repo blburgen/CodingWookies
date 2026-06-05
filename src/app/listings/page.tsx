@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { Product } from "@/types/product";
+import Header from "../ui/header";
+import Footer from "../ui/footer";
 
 const MOCK_PRODUCTS: Product[] = [
   {
@@ -49,6 +51,8 @@ export default function ListingPage() {
   }
 
   return (
+    <>
+      <Header />
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <h1 className="text-3xl font-bold text-white mb-6 border-b border-gray-700 pb-2">
         Marketplace Listings
@@ -90,5 +94,7 @@ export default function ListingPage() {
         ))}
       </div>
     </div>
+    <Footer />
+    </>
   );
 }
