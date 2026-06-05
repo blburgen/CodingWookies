@@ -11,9 +11,6 @@ export default function Home() {
         className={styles.main}
         aria-label="Handcrafted Haven Marketplace Homepage"
       >
-        {/* =========================================================================
-            ISAAC contribution: HERO SECTION (Welcome section)
-            ========================================================================= */}
         <section className={styles.heroSection} aria-labelledby="hero-title">
           <h1 id="hero-title" className={styles.heroTitle}>
             Handcrafted Haven
@@ -32,10 +29,6 @@ export default function Home() {
             </button>
           </div>
         </section>
-
-        {/* =========================================================================
-            ISAAC contribution: Applying requirements in Cards
-            ========================================================================= */}
         <h2 className={styles.sectionTitle} id="features-title">
           Our Platform Features
         </h2>
