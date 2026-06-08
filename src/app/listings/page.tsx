@@ -4,6 +4,13 @@ import { useState, useEffect } from "react";
 import Header from "@/app/ui/header";
 import Footer from "@/app/ui/footer";
 import ReviewForm from "../ui/reviewform";
+import { ReviewCard } from "@/app/ui/reviewcard";
+import { Product } from "@/types/product";
+import { Review } from "@/types/review";
+
+interface ExtensionReview extends Review {
+  productId: string;
+}
 
 const TEAM_NAME: string = "Coding_Wookies";
 
@@ -11,6 +18,7 @@ function formatGuildDescription(baseText: string): string {
   const cleanName = TEAM_NAME.replace("_", " ");
   return `${baseText} Hand-designed and crafted exclusively by the ${cleanName} Artisan Guild.`;
 }
+
 const MOCK_PRODUCTS: Product[] = [
   {
     id: "1",
@@ -103,72 +111,155 @@ const MOCK_REVIEWS: ExtensionReview[] = [
 ];
 
 export default function ListingPage() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [reviews, setReviews] = useState<ExtensionReview[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setProducts(MOCK_PRODUCTS);
+      setReviews(MOCK_REVIEWS);
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleDeleteReview = (reviewId: string) => {
+    setReviews(reviews.filter((review) => review.id !== reviewId));
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col justify-center items-center h-96 bg-slate-950 min-h-screen text-white">
+        <p className="text-xl font-semibold text-gray-400 animate-pulse">
+          Loading marketplace listings...
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-slate-950 text-white p-8">
-      <header className="mb-12 border-b border-slate-800 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="bg-amber-500 text-slate-950 text-xs font-black px-2 py-1 rounded-sm tracking-wider">
-              CODING WOOKIES PROJECT
-            </span>
-          </div>
-          <h1 className="text-4xl font-extrabold text-slate-100 tracking-tight">
-            Handcrafted <span className="text-amber-500">Haven</span>
-          </h1>
-          <p className="text-slate-400 mt-1">
-            Connecting authentic global artisans with passionate collectors.
-          </p>
-        </div>
-
-        <div className="text-right bg-slate-900 border border-slate-800 p-3 rounded-lg hidden sm:block">
-          <p className="text-xs text-slate-500 font-mono">Deployment Status</p>
-          <p className="text-sm text-indigo-400 font-semibold"></p>
-        </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-        {products.map((product) => (
-          <div
-            key={product.id}
-            className="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col justify-between shadow-xl transition-all hover:border-slate-700"
-          >
+    <>
+      <Header />
+      <div
+        style={{
+          paddingLeft: "8%",
+          paddingRight: "8%",
+          paddingTop: "40px",
+          paddingBottom: "40px",
+        }}
+        className="w-full bg-slate-950 min-h-screen text-white"
+      >
+        <div className="w-full">
+ 
+          <header className="mb-12 border-b border-slate-800 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-              <div className="flex justify-between items-start mb-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-indigo-400">
-                  {product.category}
-                </span>
-                <span className="text-xs text-slate-500 italic">
-                  By {product.artisan}
+              <div className="flex items-center gap-2 mb-2">
+                <span className="bg-amber-500 text-slate-950 text-xs font-black px-2 py-1 rounded-sm tracking-wider">
+                  CODING WOOKIES PROJECT
                 </span>
               </div>
-              <h2 className="text-2xl font-bold text-slate-100 mb-2">
-                {product.name}
-              </h2>
-              <p className="text-slate-400 mb-4 text-sm leading-relaxed">
-                {product.description}
+              <p className="text-slate-400 mt-1">
+                Connecting authentic global artisans with passionate collectors.
               </p>
             </div>
 
-            <div className="mt-auto">
-              <div className="mt-auto pt-4 border-t border-slate-800">
-                <div className="text-2xl font-black text-amber-500 mb-3">
-                  ${product.price.toFixed(2)}
-                </div>
-              </div>
-
-              <button className="w-full bg-indigo-600 text-white py-2.5 rounded-md font-semibold hover:bg-indigo-700 transition-colors mb-6 text-sm tracking-wide">
-                View Details
-              </button>
-
-              <div className="mt-4 pt-4 border-t border-slate-800/60">
-                <ReviewForm productId={product.id} />
-              </div>
+            <div className="text-right bg-slate-900 border border-slate-800 p-3 rounded-lg hidden sm:block">
+              <p className="text-xs text-slate-500 font-mono">
+                Deployment Status
+              </p>
+              <p className="text-sm text-indigo-400 font-semibold">
+                🟢 Vercel Production Active
+              </p>
             </div>
-          </div>
-        ))}
-      </main>
+          </header>
 
+          <h1 className="text-3xl font-bold text-white mb-10 border-b border-slate-800 pb-4 tracking-tight">
+            Marketplace Listings
+          </h1>
+
+          <div className="space-y-16 w-full">
+            {products.map((product) => {
+              const productReviews = reviews.filter(
+                (r) => r.productId === product.id,
+              );
+
+              return (
+                <div
+                  key={product.id}
+                  className="w-full bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl backdrop-blur-sm"
+                >
+                  <div className="flex flex-col md:flex-row gap-8 pb-8 border-b border-slate-800/80 w-full">
+
+                    <div className="w-full md:w-64 h-64 md:h-48 flex-shrink-0 overflow-hidden rounded-xl shadow-md border border-slate-700/30 bg-slate-950 flex items-center justify-center">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={product.imageUrl}
+                        alt={product.title}
+                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                      />
+                    </div>
+
+                    <div className="flex-1 flex flex-col justify-between w-full">
+                      <div>
+                        <span className="text-xs font-bold text-indigo-400 uppercase tracking-widest bg-indigo-950/50 px-2.5 py-1 rounded-md border border-indigo-900/40">
+                          {product.category}
+                        </span>
+                        <h2 className="text-2xl font-bold text-white mt-3 mb-2 tracking-tight">
+                          {product.title}
+                        </h2>
+                        <p className="text-sm text-gray-400 leading-relaxed max-w-2xl">
+                          {product.description}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center justify-between mt-6 md:mt-0 pt-4 md:pt-0 w-full">
+                        <div className="text-2xl font-extrabold text-amber-500">
+                          ${product.price.toFixed(2)}
+                        </div>
+                        <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-lg font-semibold shadow-lg shadow-indigo-600/20 transition-all duration-200 text-sm">
+                          View Details
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-8 w-full">
+                    <h3 className="text-md font-semibold text-slate-300 mb-5 flex items-center gap-2.5">
+                      Customer Feedback
+                      <span className="text-xs bg-slate-800 text-slate-400 px-2.5 py-0.5 rounded-full border border-slate-700/50 font-medium">
+                        {productReviews.length}
+                      </span>
+                    </h3>
+
+                    {productReviews.length === 0 ? (
+                      <p className="text-xs text-gray-500 italic bg-slate-950/40 border border-slate-800/50 rounded-xl p-4 w-full">
+                        No reviews available for this item yet.
+                      </p>
+                    ) : (
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full mb-6">
+                        {productReviews.map((item) => (
+                          <ReviewCard
+                            key={item.id}
+                            review={item}
+                            onDelete={handleDeleteReview}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  
+                  <div className="mt-6 pt-6 border-t border-slate-800/60 w-full">
+                    <ReviewForm productId={product.id} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
