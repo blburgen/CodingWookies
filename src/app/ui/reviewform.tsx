@@ -28,7 +28,7 @@ export default function ReviewForm({ productId }: ReviewFormProps) {
     },
   ]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     setMessage("");
