@@ -209,7 +209,7 @@ export default function ReviewForm({ productId }: ReviewFormProps) {
               <div
                 style={{
                   display: "flex",
-                  justifyBetween: "space-between",
+                  justifyContent: "space-between",
                   alignItems: "center",
                   marginBottom: "0.5rem",
                 }}
