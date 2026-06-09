@@ -1,0 +1,8 @@
+
+CREATE TABLE IF NOT EXISTS "user" (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_first_name VARCHAR(255) NOT NULL,
+    user_last_name VARCHAR(255) NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
