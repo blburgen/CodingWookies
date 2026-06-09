@@ -10,7 +10,7 @@ export interface AuthResult {
 }
 
 /**
- * Authenticate user account.
+ * Login to account
  */
 export async function login(email: string, password: string): Promise<AuthResult> {
   if (!email || !password) {

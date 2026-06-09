@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { signup } from "@/app/actions/auth";
+import { setFlash } from "@/app/lib/flash";
 import styles from "@/app/page.module.css";
 import Header from "@/app/ui/header";
 import Footer from "@/app/ui/footer";
@@ -23,7 +24,9 @@ export default function Signup() {
     const result = await signup(firstName, lastName, email, password);
     if (!result.success) {
       setError(result.error ?? "Could not create account.");
+      await setFlash("error", result.error ?? "Could not create account.");
     } else {
+      await setFlash("success", "Account created successfully! Please sign in.");
       router.push("/login");
     }
     setLoading(false);
