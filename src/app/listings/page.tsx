@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Product } from "@/types/product";
-import { Review } from "@/types/review";
 import Header from "@/app/ui/header";
 import Footer from "@/app/ui/footer";
+import ReviewForm from "../ui/reviewform";
 import { ReviewCard } from "@/app/ui/reviewcard";
+import { Product } from "@/types/product";
+import { Review } from "@/types/review";
 
 interface ExtensionReview extends Review {
   productId: string;
@@ -129,7 +130,7 @@ export default function ListingPage() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-96">
+      <div className="flex flex-col justify-center items-center h-96 bg-slate-950 min-h-screen text-white">
         <p className="text-xl font-semibold text-gray-400 animate-pulse">
           Loading marketplace listings...
         </p>
@@ -147,9 +148,32 @@ export default function ListingPage() {
           paddingTop: "40px",
           paddingBottom: "40px",
         }}
-        className="w-full bg-slate-950 min-h-screen"
+        className="w-full bg-slate-950 min-h-screen text-white"
       >
         <div className="w-full">
+ 
+          <header className="mb-12 border-b border-slate-800 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="bg-amber-500 text-slate-950 text-xs font-black px-2 py-1 rounded-sm tracking-wider">
+                  CODING WOOKIES PROJECT
+                </span>
+              </div>
+              <p className="text-slate-400 mt-1">
+                Connecting authentic global artisans with passionate collectors.
+              </p>
+            </div>
+
+            <div className="text-right bg-slate-900 border border-slate-800 p-3 rounded-lg hidden sm:block">
+              <p className="text-xs text-slate-500 font-mono">
+                Deployment Status
+              </p>
+              <p className="text-sm text-indigo-400 font-semibold">
+                🟢 Vercel Production Active
+              </p>
+            </div>
+          </header>
+
           <h1 className="text-3xl font-bold text-white mb-10 border-b border-slate-800 pb-4 tracking-tight">
             Marketplace Listings
           </h1>
@@ -166,6 +190,7 @@ export default function ListingPage() {
                   className="w-full bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl backdrop-blur-sm"
                 >
                   <div className="flex flex-col md:flex-row gap-8 pb-8 border-b border-slate-800/80 w-full">
+
                     <div className="w-full md:w-64 h-64 md:h-48 flex-shrink-0 overflow-hidden rounded-xl shadow-md border border-slate-700/30 bg-slate-950 flex items-center justify-center">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
@@ -212,7 +237,7 @@ export default function ListingPage() {
                         No reviews available for this item yet.
                       </p>
                     ) : (
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full mb-6">
                         {productReviews.map((item) => (
                           <ReviewCard
                             key={item.id}
@@ -222,6 +247,11 @@ export default function ListingPage() {
                         ))}
                       </div>
                     )}
+                  </div>
+
+                  
+                  <div className="mt-6 pt-6 border-t border-slate-800/60 w-full">
+                    <ReviewForm productId={product.id} />
                   </div>
                 </div>
               );
