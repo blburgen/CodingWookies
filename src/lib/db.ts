@@ -37,7 +37,7 @@ if (process.env.NODE_ENV === "development" && process.env.ENABLE_SQL_LOGGING ===
     },
   };
 } else {
-  db = pool;
+  db = Object.assign(pool, { close: () => pool.end() });
 }
 
 export const testConnection = async () => {
