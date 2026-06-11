@@ -7,60 +7,12 @@ import ReviewForm from "../ui/reviewform";
 import { ReviewCard } from "@/app/ui/reviewcard";
 import { Product } from "@/types/product";
 import { Review } from "@/types/review";
+import { getListings } from "@/app/actions/listings";
 
 interface ExtensionReview extends Review {
   productId: string;
 }
 
-const TEAM_NAME: string = "Coding_Wookies";
-
-function formatGuildDescription(baseText: string): string {
-  const cleanName = TEAM_NAME.replace("_", " ");
-  return `${baseText} Hand-designed and crafted exclusively by the ${cleanName} Artisan Guild.`;
-}
-
-const MOCK_PRODUCTS: Product[] = [
-  {
-    id: "1",
-    title: "Sublimated Star Wars Wookiee Hoodie",
-    price: 65.0,
-    description: formatGuildDescription(
-      "A premium, highly detailed sublimated hoodie featuring rich earth tones and a stylized Chewbacca pattern.",
-    ),
-    imageUrl: "/coding_wookies_sweater.jpg",
-    category: "Geek Apparel",
-  },
-  {
-    id: "2",
-    title: "Artisan Battle-Ready Wookiee Miniature",
-    price: 45.0,
-    description: formatGuildDescription(
-      "A custom-sculpted, hand-painted Wookiee warrior miniature wielding an authentic bowcaster in an aggressive combat stance.",
-    ),
-    imageUrl: "/wooden_wookie_2.jfif",
-    category: "Miniatures",
-  },
-  {
-    id: "3",
-    title: "Hand-Poured Botanical Soy Candle Set",
-    price: 24.99,
-    description:
-      "A curated collection of three organic soy candles infused with natural essential oils. Hand-poured into minimalist reusable concrete and ceramic jars.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1602874801007-bd458bb1b8b6?w=600&q=80",
-    category: "Home Decor",
-  },
-  {
-    id: "4",
-    title: "Custom Hand-Woven Macramé Wall Hanging",
-    price: 38.5,
-    description:
-      "A stunning bohemian-style wall art piece woven by hand using 100% natural cotton cords on a rustic, locally sourced wooden support.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=500&q=80",
-    category: "Accessories",
-  },
-];
 
 const MOCK_REVIEWS: ExtensionReview[] = [
   {
@@ -116,12 +68,11 @@ export default function ListingPage() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setProducts(MOCK_PRODUCTS);
+    getListings().then((items) => {
+      setProducts(items);
       setReviews(MOCK_REVIEWS);
       setIsLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
+    });
   }, []);
 
   const handleDeleteReview = (reviewId: string) => {
