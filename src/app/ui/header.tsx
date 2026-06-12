@@ -1,15 +1,26 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import Link from "next/link";
+import { getSession } from "@/app/lib/session";
+import { logout } from "@/app/actions/auth";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    getSession().then((s) => setLoggedIn(s !== null));
+  }, []);
+
+  const handleLogout = async () => {
+    await logout();
+    window.location.href = "/";
+  };
 
   const items = [
     { href: "/", label: "Home" },
-    { href: "/login", label: "Login" },
     { href: "/listings", label: "Listings" },
     { href: "/about", label: "About Us" },
   ];
@@ -49,6 +60,13 @@ export default function Header() {
               <Link href={item.href}>{item.label}</Link>
             </li>
           ))}
+          <li className="navigation-item">
+            {loggedIn ? (
+              <button onClick={handleLogout}>Logout</button>
+            ) : (
+              <Link href="/login">Login</Link>
+            )}
+          </li>
         </ul>
       </nav>
     </header>

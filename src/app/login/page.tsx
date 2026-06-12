@@ -23,7 +23,6 @@ export default function Login() {
       if (!result.success) {
         setError(result.error ?? "Login failed.");
       } else {
-        alert("You are signed in"); /// TODO -- persist session
         router.push("/");
       }
     } catch {

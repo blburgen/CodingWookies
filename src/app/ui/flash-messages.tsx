@@ -11,8 +11,7 @@ export default async function FlashMessages() {
     <div className={styles.root} role="alert">
       <FlashCleaner />
       {flat.map((msg, i) => (
-        <p key={i} className={styles.item}>
-          <strong>{msg.type.charAt(0).toUpperCase() + msg.type.slice(1)}:</strong>{" "}
+        <p key={i} className={`${styles.item} ${styles[msg.type]}`}>
           {msg.text}
         </p>
       ))}

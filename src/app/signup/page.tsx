@@ -24,7 +24,6 @@ export default function Signup() {
     const result = await signup(firstName, lastName, email, password);
     if (!result.success) {
       setError(result.error ?? "Could not create account.");
-      await setFlash("error", result.error ?? "Could not create account.");
     } else {
       await setFlash("success", "Account created successfully! Please sign in.");
       router.push("/login");
