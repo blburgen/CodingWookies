@@ -126,14 +126,21 @@ body {
   padding: 0;
 }
 
-.navigation a {
+.navigation a,
+.navigation button {
   display: block;
   padding: .8rem 10px;
   text-decoration: none;
   border-radius: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
 }
 
-.navigation a:hover {
+.navigation a:hover,
+.navigation button:hover {
   transition: all .3s ease;
   background-color: var(--hover-bg);
   border-radius: 7px;

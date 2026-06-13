@@ -2,6 +2,7 @@
 
 import bcrypt from "bcryptjs";
 import db from "@/lib/db";
+import { setSession, clearSession } from "@/app/lib/session";
 
 export interface AuthResult {
   success: boolean;
@@ -35,6 +36,13 @@ export async function login(email: string, password: string): Promise<AuthResult
     if (!match) {
       return { success: false, error: "Invalid credentials" };
     }
+
+    await setSession({
+      id: user.id as number,
+      firstName: user.user_first_name as string,
+      lastName: user.user_last_name as string,
+      email: user.email as string,
+    });
 
     return {
       success: true,
@@ -83,7 +91,14 @@ export async function signup(firstName: string, lastName: string, email: string,
       },
     };
   } catch (err) {
+    if ((err as Record<string, unknown>).code === "23505") {
+      return { success: false, error: "An account with that email already exists" };
+    }
     console.error("Signup error:", err);
     return { success: false, error: "Internal server error" };
   }
+}
+
+export async function logout(): Promise<void> {
+  await clearSession();
 }
