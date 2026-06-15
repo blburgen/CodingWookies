@@ -23,6 +23,7 @@ export default function Header() {
     { href: "/", label: "Home" },
     { href: "/listings", label: "Listings" },
     { href: "/about", label: "About Us" },
+    { href: "/dashboard", label: "Dashboard"}
   ];
 
   const changeSubmitSearch = (e: ChangeEvent) => {
