@@ -15,13 +15,14 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [seller, setSeller] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setLoading(true);
-    const result = await signup(firstName, lastName, email, password);
+    const result = await signup(firstName, lastName, email, password, seller);
     if (!result.success) {
       setError(result.error ?? "Could not create account.");
     } else {
@@ -90,6 +91,20 @@ export default function Signup() {
                   placeholder="you@example.com"
                   required
                   autoComplete="email"
+                  disabled={loading}
+                />
+              </div>
+
+              <div className={styles.formGroup}>
+                <label className={styles.formLabel} htmlFor="seller">
+                  Seller
+                </label>
+                <input
+                  id="seller"
+                  type="checkbox"
+                  className={styles.formInput}
+                  onChange={(e) => setSeller(!seller)}
+                  autoComplete="seller"
                   disabled={loading}
                 />
               </div>

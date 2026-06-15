@@ -11,6 +11,7 @@ export interface SessionUser {
   firstName: string;
   lastName: string;
   email: string;
+  seller: boolean;
 }
 
 function sign(payload: string): string {

@@ -7,7 +7,7 @@ import { setSession, clearSession } from "@/app/lib/session";
 export interface AuthResult {
   success: boolean;
   error?: string;
-  user?: { id: unknown; firstName: string; lastName: string; email: string };
+  user?: { id: unknown; firstName: string; lastName: string; email: string; seller: boolean };
 }
 
 /**
@@ -42,6 +42,7 @@ export async function login(email: string, password: string): Promise<AuthResult
       firstName: user.user_first_name as string,
       lastName: user.user_last_name as string,
       email: user.email as string,
+      seller: user.is_seller as boolean,
     });
 
     return {
@@ -51,6 +52,7 @@ export async function login(email: string, password: string): Promise<AuthResult
         firstName: user.user_first_name as string,
         lastName: user.user_last_name as string,
         email: user.email as string,
+        seller: user.is_seller as boolean,
       },
     };
   } catch (err) {
@@ -62,7 +64,7 @@ export async function login(email: string, password: string): Promise<AuthResult
 /**
  * Create a new user account.
  */
-export async function signup(firstName: string, lastName: string, email: string, password: string): Promise<AuthResult> {
+export async function signup(firstName: string, lastName: string, email: string, password: string, seller: boolean): Promise<AuthResult> {
   if (!firstName || !lastName || !email || !password) {
     return { success: false, error: "All fields are required" };
   }
@@ -75,8 +77,8 @@ export async function signup(firstName: string, lastName: string, email: string,
     const hash = await bcrypt.hash(password, 12);
 
     const result = await db.query(
-      'INSERT INTO "user" (user_first_name, user_last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING id, user_first_name, user_last_name, email',
-      [firstName, lastName, email.toLowerCase(), hash],
+      'INSERT INTO "user" (user_first_name, user_last_name, email, password, is_seller) VALUES ($1, $2, $3, $4, $5) RETURNING id, user_first_name, user_last_name, email, is_seller',
+      [firstName, lastName, email.toLowerCase(), hash, seller],
     );
 
     const user = result.rows[0] as Record<string, unknown>;
@@ -88,6 +90,7 @@ export async function signup(firstName: string, lastName: string, email: string,
         firstName: user.user_first_name as string,
         lastName: user.user_last_name as string,
         email: user.email as string,
+        seller: user.is_seller as boolean,
       },
     };
   } catch (err) {
