@@ -2,6 +2,7 @@ import styles from "./page.module.css";
 import Header from "@/app/ui/header";
 import Footer from "@/app/ui/footer";
 import Card from "@/app/ui/card";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -21,12 +22,14 @@ export default function Home() {
             virtual shop today.
           </p>
           <div className={styles.ctaContainer}>
-            <button
-              className={styles.ctaButton}
-              aria-label="Explore the artisan marketplace"
-            >
-              Explore Marketplace
-            </button>
+            <Link href="/listings">
+              <button
+                className={styles.ctaButton}
+                aria-label="Explore the artisan marketplace"
+              >
+                Explore Marketplace
+              </button>
+            </Link>
           </div>
         </section>
         <h2 className={styles.sectionTitle} id="features-title">
