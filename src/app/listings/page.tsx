@@ -102,7 +102,6 @@ export default function ListingPage() {
         className="w-full bg-slate-950 min-h-screen text-white"
       >
         <div className="w-full">
- 
           <header className="mb-12 border-b border-slate-800 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
               <div className="flex items-center gap-2 mb-2">
@@ -140,6 +139,7 @@ export default function ListingPage() {
                   key={product.id}
                   className="w-full bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl backdrop-blur-sm"
                 >
+                  <a href="/coding" className="button">Seller: Coding Wookies</a>
                   <div className="flex flex-col md:flex-row gap-8 pb-8 border-b border-slate-800/80 w-full">
 
                     <div className="w-full md:w-64 h-64 md:h-48 flex-shrink-0 overflow-hidden rounded-xl shadow-md border border-slate-700/30 bg-slate-950 flex items-center justify-center">
